@@ -1,1 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "tailwindcss";
+@import "tailwindcss-animated";
+/* Custom SweetAlert2 theme with slate-950 (#0f172a) */
+.swal2-popup {
+  background: #0f172a !important; /* Slate-950 background */
+  color: #e2e8f0 !important; /* Slate-200 for readable text */
+  border-radius: 8px;
+}
+
+.swal2-title {
+  color: #e2e8f0 !important; /* Slate-200 for title */
+}
+
+.swal2-content {
+  color: #d1d5db !important; /* Slate-300 for content text */
+}
+
+.swal2-html-container {
+  color: #d1d5db !important; /* Slate-300 for custom HTML content */
+}
+
+.swal2-confirm-button {
+  background-color: #1e40af !important; /* Blue-800 for confirm button */
+  color: #ffffff !important;
+}
+
+.swal2-cancel-button {
+  background-color: #6b7280 !important; /* Slate-500 for cancel button */
+  color: #ffffff !important;
+}
+
+.swal2-deny-button {
+  background-color: #991b1b !important; /* Red-800 for deny button */
+  color: #ffffff !important;
+}
+
+.swal2-actions button:hover {
+  opacity: 0.9 !important;
+}
+
+.swal2-backdrop {
+  background: rgba(15, 23, 42, 0.8) !important; /* Slate-950 with opacity for overlay */
+}
+
+.swal2-icon.swal2-success .swal2-icon-content {
+  color: #10b981 !important; /* Green-500 for success icon */
+}
+
+.swal2-icon.swal2-error .swal2-icon-content {
+  color: #ef4444 !important; /* Red-500 for error icon */
+}
+
+.swal2-icon.swal2-warning .swal2-icon-content {
+  color: #f59e0b !important; /* Yellow-500 for warning icon */
+}
+
+.swal2-input {
+  background: #1e293b !important; /* Slate-800 for input fields */
+  color: #e2e8f0 !important;
+  border: 1px solid #4b5563 !important; /* Slate-600 for input border */
+}
+
+.swal2-input:focus {
+  border-color: #1e40af !important; /* Blue-800 for focused input */
+}
