@@ -1,0 +1,44 @@
+<div class="bg-slate-900 p-6 rounded-lg shadow-lg max-w-md mx-auto text-white">
+  <div class="flex justify-between items-center mb-4">
+    <button (click)="prevMonth()" class="p-2 hover:bg-slate-700 rounded-full" aria-label="Previous month">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+    <h2 class="text-lg font-bold">{{ currentMonth }} {{ currentYear }}</h2>
+    <button (click)="nextMonth()" class="p-2 hover:bg-slate-700 rounded-full" aria-label="Next month">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+  <div class="grid grid-cols-7 gap-1 text-center" role="grid" aria-label="Calendar">
+    <div class="font-semibold">S</div>
+    <div class="font-semibold">M</div>
+    <div class="font-semibold">T</div>
+    <div class="font-semibold">W</div>
+    <div class="font-semibold">T</div>
+    <div class="font-semibold">F</div>
+    <div class="font-semibold">S</div>
+    <div *ngFor="let day of calendarDays" 
+         (click)="selectDay(day)"
+         (keydown)="handleKeydown($event, day)"
+         [attr.tabindex]="day.isCurrentMonth ? 0 : -1"
+         [attr.aria-label]="day.isCurrentMonth ? 'Day ' + day.day + ' of ' + currentMonth : 'Day ' + day.day + ' of adjacent month'"
+         [ngClass]="{
+           'text-gray-500': !day.isCurrentMonth,
+           'bg-blue-600': day.isToday,
+           'bg-slate-700': day.isSelected && day.isCurrentMonth,
+           'hover:bg-slate-600': day.isCurrentMonth && !day.isToday && !day.isSelected,
+           'cursor-pointer': day.isCurrentMonth,
+           'p-2': true,
+           'rounded-full': true,
+           'text-center': true
+         }">
+      {{ day.day }}
+    </div>
+  </div>
+  <div *ngIf="selectedDay" class="mt-4 text-center">
+    <p class="text-sm">{{ selectedDay.day }} {{ currentMonth }} {{ currentYear }}</p>
+  </div>
+</div>

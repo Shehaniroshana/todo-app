@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
+import { User } from '../../../core/models/user.model';
+import { AuthService } from '../../../core/services/auth.service';
 @Component({
   selector: 'app-login',
   imports: [CommonModule,FormsModule,RouterLink],
@@ -16,26 +18,40 @@ export class LoginComponent {
     this.showPassword = !this.showPassword;
   }
 
-  // Example properties for login
- username: string = '';
-  password: string = '';
+  credentials: User = { username: '', password: '' };
 
-  onSubmit() {
-    if (this.username && this.password) {
-      console.log('Login attempted with:', { username: this.username, password: this.password });
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  login() {
+    if (!this.credentials.username || !this.credentials.password) {
       Swal.fire({
-        title: 'Login Successful',
-        text: `Welcome back, ${this.username}!`,
-        icon: 'success',
+        icon: 'error',
+        title: 'Login Failed',
+        text: 'Please enter both username and password',
         confirmButtonText: 'OK'
       });
-    } else {
-      Swal.fire({
-        title: 'Login Failed',
-        text: 'Please enter both username and password.',
-        icon: 'error',
-        confirmButtonText: 'Try Again'
-      });
+      return;
     }
+    this.authService.login(this.credentials).subscribe({
+      next: (response) => {
+        localStorage.setItem('token', response.token);
+        Swal.fire({
+          icon: 'success',
+          title: 'Login Successful',
+          text: 'Welcome back!',
+          confirmButtonText: 'OK'
+        });
+        this.router.navigate(['/dashboard']);
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: error.error.error || 'Invalid username or password',
+          confirmButtonText: 'OK'
+        });
+      }
+    });
   }
 }
